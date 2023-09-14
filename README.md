@@ -1,8 +1,6 @@
-Spring Reactive with PostgreSQL (Spring Boot WebFlux + PostgreSQL + Tomcat)
+# Spring Reactive with PostgreSQL (Spring Boot WebFlux + PostgreSQL + Tomcat)
 
-Documentation: https://www.codeburps.com/post/spring-boot-webflux-with-postgre-sql
-
-Using Spring Boot Weblfux with embedded Tomcat
+## Using Spring Boot Weblflux with embedded Tomcat
 
 Replace
 ````
@@ -31,6 +29,19 @@ With
 </dependency>
 ````
 
-And test with swagger: http://localhost:8080/swagger-ui.html
+### DB Setup
+
+````
+CREATE DATABASE userdb;
+
+CREATE TABLE users (
+id serial primary key,
+first_name varchar(50),
+last_name varchar(50)
+)
+````
+
+### Test
+Test with swagger: http://localhost:8080/swagger-ui.html
 
 ![alt text](https://techburps-7.s3.ap-south-1.amazonaws.com/tech-blog/spring-web-flux-swagger-ui-open-api.png)
