@@ -5,6 +5,7 @@ import com.cb.dto.UserDto;
 import com.cb.model.User;
 import com.cb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -42,5 +43,22 @@ public class UserController {
     @GetMapping("/")
     Flux<User> list() {
         return userService.list();
+    }
+
+    /*
+    * Only Real Usage of
+    * */
+    @GetMapping(value = "/e2e-reactive", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    Flux<User> e2eReactiveTest() {
+        return Flux.range(1, 10)
+                .doOnNext(i -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .doOnNext(i -> System.out.println("number: " + i))
+                .map(i -> new User(i, "FirstName_" + i, "LastName_" + i));
     }
 }
